@@ -1,11 +1,21 @@
 const fs = require('fs')
 const { CSV_FILE_PATH } = require('./constants');
 
-module.exports.getCommaSeparatedData = function (data) {
-  return `${data.request_id}, ${data.user_id}, ${data.action}, ${data.created_at}\n`
+function spaces(prev, curr) {
+  if (prev.length < curr.length - 1) {
+    return ""
+  }
+
+  const numberOfSpaces = prev.length - curr.length + 1
+  const tempArray = new Array(numberOfSpaces)
+  return tempArray.join(" ") + '\n'
 }
 
-module.exports.writeToFile = function (data = {}, callback) {
+function getCommaSeparatedData(data) {
+  return `${data.request_id}, ${data.user_id}, ${data.action}, ${data.created_at}, ${data.file || 'N/A'}, ${data.status}\n`
+}
+
+function writeToFile(data = {}, callback) {
   if (!Object.keys(data).length) {
     return
   }
@@ -17,4 +27,10 @@ module.exports.writeToFile = function (data = {}, callback) {
       callback('\n❌ Write error');
     }
   });
+}
+
+module.exports = {
+  spaces,
+  getCommaSeparatedData,
+  writeToFile
 }

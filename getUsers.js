@@ -18,14 +18,12 @@ module.exports = async function retrieveUsers(_next = null) {
   const { users, next } = await response.json()
   console.log(`\nℹ️ ${users.length} users successfully fetched.`);
 
-  // start registering access requests for all users
+  // register access requests for all users
   await registerAccessRequestsForUsers(users)
+
   if (next) {
-    // delay next call to fetch next batch of users by:
-    // REQUEST_THROTTLING_TIMEOUT * amount of users
-    // (after 16 minutes for throttling timeout of 10 seconds and 100 users)
     setTimeout(async function (next) {
       await retrieveUsers(next)
-    }.bind(this, next), REQUEST_THROTTLING_TIMEOUT * users.length)
+    }.bind(this, next), REQUEST_THROTTLING_TIMEOUT)
   }
 }

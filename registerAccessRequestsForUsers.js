@@ -7,14 +7,14 @@ module.exports = async function registerAccessRequestsForUsers(users = []) {
     return
   }
   const user = users.pop(); // get last item in array - mutates the array
-  console.log(`\nℹ️ Registering data access request for user ${user.user_id} .`);
+  console.log(`\nℹ️ Registering data access request for user ${user.user_id}`);
 
   const apiRoute = `https://api-${APP_ID}.sendbird.com/v3/privacy/gdpr`
 
   const response = await fetch(apiRoute, {
     method: "POST",
     headers: { 'Api-Token': API_TOKEN },
-    body: JSON.parse({
+    body: JSON.stringify({
       action: 'access',
       user_id: user.user_id,
     })
@@ -33,6 +33,7 @@ module.exports = async function registerAccessRequestsForUsers(users = []) {
     request_id,
     user_id,
     action,
+    status,
     created_at: new Date(created_at).toLocaleString()
   }
 
@@ -42,5 +43,7 @@ module.exports = async function registerAccessRequestsForUsers(users = []) {
 
   setTimeout(async function (users) {
     await registerAccessRequestsForUsers(users)
-  }.bind(this, users), REQUEST_THROTTLING_TIMEOUT)
+    // Rate limits for POST requests are limited twice as much as GET requests
+    // https://sendbird.com/docs/chat/v3/platform-api/guides/rate-limits#2-plan-based-limits
+  }.bind(this, users), REQUEST_THROTTLING_TIMEOUT * 2)
 }
