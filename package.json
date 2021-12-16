@@ -1,0 +1,17 @@
+{
+  "name": "sendbird-gdpr-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "update": "node updateRequestsStatus.js",
+    "cancel": "node cancelRequests.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "charisTheo",
+  "license": "ISC",
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  }
+}

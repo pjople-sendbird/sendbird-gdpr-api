@@ -35,7 +35,7 @@ async function updateRequestsStatus(requests, index = 0) {
     status,
     files: {
       ...files,
-      expires_at: formatDateString(files.expires_at)
+      expires_at: formatDateString(files?.expires_at)
     },
     requestId
   })

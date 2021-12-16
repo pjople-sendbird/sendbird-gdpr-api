@@ -21,7 +21,7 @@ const {
   try {
     await fs.promises.readFile(COMPLETED_REQUESTS_CSV_FILE_PATH)
   } catch (_) {
-    await fs.promises.writeFile(COMPLETED_REQUESTS_CSV_FILE_PATH, JSON.stringify({requests: []}))
+    await fs.promises.writeFile(COMPLETED_REQUESTS_CSV_FILE_PATH, '')
   }
 
   // begin fetching users

@@ -23,7 +23,7 @@ The output from the API is a URL that points to a zip folder that contains json 
 3. From the root directory of this project run inside the terminal the following to start registering data access requests for all users:
 
     ```bash
-    node index.js
+    npm start
     ```
 
 4.  When registering a GDPR data access request with the Sendbird GDPR API, the data request is returned with the HTTP response along with its details (i.e. request ID, status, creation date). This data is then stored by the script in a json file locally called `export-requests.json`. To change the filename alter the `JSON_FILENAME` varialbe inside of the `constants.js` file.
@@ -35,7 +35,7 @@ The output from the API is a URL that points to a zip folder that contains json 
 6. Since we can't get a notification about when the exports are ready we need to check proactively using the following command:
 
     ```bash
-    node updateRequestsStatus.js
+    npm run update
     ```
 
     The above command will check all registered requests inside the `export-requests.json` file and will output any completed ones in the `completed-requests.json` and `completed-requests.csv` files in JSON and CSV formats respectively. To change the filenames alter the `COMPLETED_REQUESTS_FILENAME` and `COMPLETED_REQUESTS_CSV_FILENAME` variables inside the `constants.js` file respectively.
@@ -52,5 +52,5 @@ The output from the API is a URL that points to a zip folder that contains json 
 3. To delete all data access requests, simply run the following from the root of the project:
 
     ```sh
-    node cancelRequests.js
+    npm run cancel
     ```
