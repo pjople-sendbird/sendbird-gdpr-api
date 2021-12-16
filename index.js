@@ -1,18 +1,29 @@
-const fs = require('fs');
+const fs = require('fs')
 const getUsers = require('./getUsers');
-const { CSV_FILE_PATH, CSV_COLUMN_NAMES } = require('./constants');
+const {
+  COMPLETED_REQUESTS_FILE_PATH,
+  COMPLETED_REQUESTS_CSV_FILE_PATH,
+  JSON_FILE_PATH
+} = require('./constants');
 
-(function init() {
-  // initialise csv file - will delete all previous data
-  fs.writeFile(CSV_FILE_PATH, CSV_COLUMN_NAMES.join(', ') + "\n", (err) => {
-    if (!err) {
-      console.log('\n✅ Write header success');
-    }
-    else {
-      console.log('\n❌ Write header error');
-    }
-  })
+(async function init() {
+  // initialise output files - create them if they don't exist
+  try {
+    await fs.promises.readFile(JSON_FILE_PATH)
+  } catch (_) {
+    await fs.promises.writeFile(JSON_FILE_PATH, JSON.stringify({requests: []}))
+  }
+  try {
+    await fs.promises.readFile(COMPLETED_REQUESTS_FILE_PATH)
+  } catch (_) {
+    await fs.promises.writeFile(COMPLETED_REQUESTS_FILE_PATH, JSON.stringify({requests: []}))
+  }
+  try {
+    await fs.promises.readFile(COMPLETED_REQUESTS_CSV_FILE_PATH)
+  } catch (_) {
+    await fs.promises.writeFile(COMPLETED_REQUESTS_CSV_FILE_PATH, JSON.stringify({requests: []}))
+  }
 
-  // begin fetching
+  // begin fetching users
   getUsers()
 })()

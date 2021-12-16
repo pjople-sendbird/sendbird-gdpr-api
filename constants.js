@@ -1,18 +1,15 @@
-const APP_ID = "<APP_ID>";
-const API_TOKEN = "<API_TOKEN>";
-const USER_LIMIT = 10;
+const path = require('path')
+const APP_ID = "<YOUR APP ID HERE>";
+const API_TOKEN = "<YOUR API TOKEN HERE>";
+const USER_LIMIT = 100;
 const GDPR_REQUEST_LIMIT = 100;
-// https://sendbird.com/docs/chat/v3/platform-api/guides/rate-limits#2-plan-based-limits
-const REQUEST_THROTTLING_TIMEOUT = 100;
-const CSV_FILE_PATH = "./data.csv";
-const CSV_COLUMN_NAMES = [
-  "Request ID",
-  "User ID",
-  "Action",
-  "Request created at",
-  "File",
-  "Status",
-]
+const REQUEST_THROTTLING_TIMEOUT = 1500;
+const JSON_FILENAME = 'export-requests.json'
+const JSON_FILE_PATH = path.join(__dirname, JSON_FILENAME)
+const COMPLETED_REQUESTS_FILENAME = 'completed-requests.json'
+const COMPLETED_REQUESTS_FILE_PATH = path.join(__dirname, COMPLETED_REQUESTS_FILENAME)
+const COMPLETED_REQUESTS_CSV_FILENAME = 'completed-requests.csv'
+const COMPLETED_REQUESTS_CSV_FILE_PATH = path.join(__dirname, COMPLETED_REQUESTS_CSV_FILENAME)
 
 module.exports = {
   APP_ID,
@@ -20,6 +17,10 @@ module.exports = {
   USER_LIMIT,
   GDPR_REQUEST_LIMIT,
   REQUEST_THROTTLING_TIMEOUT,
-  CSV_FILE_PATH,
-  CSV_COLUMN_NAMES
+  JSON_FILE_PATH,
+  JSON_FILENAME,
+  COMPLETED_REQUESTS_FILENAME,
+  COMPLETED_REQUESTS_FILE_PATH,
+  COMPLETED_REQUESTS_CSV_FILENAME,
+  COMPLETED_REQUESTS_CSV_FILE_PATH
 }
